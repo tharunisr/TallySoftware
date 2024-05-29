@@ -4,6 +4,7 @@ namespace TallySoftware.DTO
 {
     public class CustomerDTO
     {
+        public int Customerid { get; set; }
         [Required]
         public string Name { get; set; }
         public string? Address { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model TallySoftware.DTO.CustomerDTO
 
 @{
-    ViewData["Title"] = "Add Customer";
+    ViewData["Title"] = "Edit Customer";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -13,14 +13,16 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="text-center" style="color: #212529; font-family: 'Times New Roman'">Add Customer</h2>
+                        <h2 class="text-center" style="color: #212529; font-family: 'Times New Roman'">Edit Customer</h2>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("AddCustomer", "Customer", FormMethod.Post))
+                        @using (Html.BeginForm("EditCustomer", "Customer", FormMethod.Post, new { id = "submitForm" }))
                         {
                             <p class="text-center text-danger">@ViewBag.UserAlreadyExistMsg</p>
-                           
 
+                            <div class="d-none">
+                                @Html.TextBoxFor(temp => temp.Customerid)
+                            </div>
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.Name)<span class="text-danger mx-1">*</span>
                                 @Html.TextBoxFor(temp => temp.Name, new { @class = "form-control" })
@@ -75,74 +77,3 @@
 </html>
 
 
-
-@* 
-<h1 style="text-align:center">AddCustomer</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        @using (Html.BeginForm("AddCustomer", "Customer", FormMethod.Post, new { id = "submitForm" }))
-        {
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Remark" class="control-label"></label>
-                <input asp-for="Remark" class="form-control" />
-                <span asp-validation-for="Remark" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AdministrativeId" class="control-label"></label>
-                <input asp-for="AdministrativeId" class="form-control" />
-                <span asp-validation-for="AdministrativeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonName" class="control-label"></label>
-                <input asp-for="ContactPersonName" class="form-control" />
-                <span asp-validation-for="ContactPersonName" class="text-danger"></span>
-            </div>
-         
-            <div class="form-group">
-                <label asp-for="CustomerTypeName" class="control-label"></label>
-                <input asp-for="CustomerTypeName" class="form-control" />
-                <span asp-validation-for="CustomerTypeName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        }
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
- *@

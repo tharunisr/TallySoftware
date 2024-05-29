@@ -16,6 +16,7 @@ namespace TallySoftware.Entity
         [Required]
         public string Remark {  get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Schedule {  get; set; }
         [Required]
         public string Payment {  get; set; }

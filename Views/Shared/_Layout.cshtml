@@ -3,10 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TallySoftware</title>
+    <title>@ViewData["Title"] - Sai Systems</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @* <link  href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TallySoftware.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    
     <style>
         .field-validation-error, .validation-summary-errors {
             color: red;
@@ -21,7 +25,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container-fluid">
-                <div class="navbar-brand">Tally Software</div>
+                <div class="navbar-brand">Sai Systems</div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,6 +33,9 @@
                     @if (@Context.Session.GetString("LoggedInUserName") != null)
                     {
                         <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" onclick="location.href='@Url.Action("Admindashboard", "Staff")'" style="cursor:pointer">Home</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" onclick="location.href='@Url.Action("AddStaff", "Staff")'" style="cursor:pointer">Add Staff</a>
                             </li>

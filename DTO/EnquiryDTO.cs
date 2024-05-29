@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TallySoftware.Entity;
 
 namespace TallySoftware.DTO
 {
     public class EnquiryDTO
     {
+        public int Id { get; set; }
         [Required]
         public string CustomerName {  get; set; }
         public List<string>? CustomerNameList { get; set; }
@@ -15,9 +17,11 @@ namespace TallySoftware.DTO
         [Required]
         public string Remark {  get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Schedule {  get; set; }
         [Required]
         public string Payment {  get; set; }
+        public Customer? Customer { get; set; }
 
     }
 }

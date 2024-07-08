@@ -7,12 +7,14 @@ namespace TallySoftware.Entity
     {
         public int CustomerId { get; set; }
         [Required]
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public string? Address { get; set; }
         [Required]
         [RegularExpression("/^(\\+)(?(1))\\d{1,3}?[- ]?\\d{10}$|^([^0])(?(1))\\d{9}?$|^([0])(?(1))\\d{10}?$/")]
-        public string PhoneNumber {  get; set; }
-        public string? Remark { get; set;}
+        public string PhoneNumber { get; set; }
+        public string? Remark { get; set; }
+        
+        [Display(Name = "AdministratorId")]
         public int? AdministrativeId {  get; set; }
         public string? CompanyName {  get; set; }
         public string? ContactPersonName { get; set; }

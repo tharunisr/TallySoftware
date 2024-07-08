@@ -22,6 +22,7 @@ namespace TallySoftware.DTO
         [Required]
         public string Payment {  get; set; }
         public Customer? Customer { get; set; }
+        public string Resource {  get; set; }
 
     }
 }

@@ -28,7 +28,7 @@
                                     <p class="text-center text-danger">@ViewBag.LoginDataRequired</p>
                                     <div class="mb-3">
                                         @Html.LabelFor(temp => temp.StaffName)<span class="text-danger mx-1">*</span>
-                                        @Html.TextBoxFor(temp => temp.StaffName, new { @class = "form-control" })
+                                        @Html.TextBoxFor(temp => temp.StaffName, new { @class = "form-control",autocomplete = "off" })
                                         @Html.ValidationMessageFor(temp => temp.StaffName)
                                     </div>
                                     <div class="mb-3">
@@ -42,7 +42,7 @@
                                         @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a class="btn btn-danger ms-1" href="/staff/admindashboard">Cancel</a>
+                                    <a class="btn btn-danger ms-1" href="/staff/dashboard">Cancel</a>
                                 }
                             </div>
                         </div>

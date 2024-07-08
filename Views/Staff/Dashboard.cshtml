@@ -1,0 +1,48 @@
+﻿@model TallySoftware.Models.EnquiryStatusCountModel;
+<div class="container w-50">
+	<div class="row my-5">
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="Lead" })'">
+				<div class="card-body lead-color  fw-bold" style="cursor:pointer">Lead : @Model.Lead</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto " onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="Payment Pending" })'">
+				<div class="card-body payment-color fw-bold " style="cursor:pointer">Payment Pending : @Model.PaymentPending</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="Completed" })'">
+
+				<div class="card-body completed-color fw-bolder bg-success" style="cursor:pointer">Completed : @Model.Completed</div>
+			</div>
+		</div>
+	</div>
+	<div class="row my-5">
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="Rejected" })'">
+				<div class="card-body rejected-color fw-bold bg-danger" style="cursor:pointer">Rejected : @Model.Rejected</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="New" })'">
+				<div class="card-body new-color fw-bold" style="cursor:pointer">New : @Model.New</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<div class="card mx-auto" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{ schedule= DateTime.Now, status="Today" })'">
+				<div class="card-body todayschedule-color fw-bold" style="cursor:pointer">Today Schedule : @Model.TodaySchedule</div>
+			</div>
+		</div>
+	</div>
+	<div class="add-btn">
+		<div class="my-3">
+			<i class="fa-solid fa-circle-plus enquiry-plus fa-2xl" onclick="location.href='@Url.Action("Enquiry", "staff")'"></i>
+		</div>
+		
+	</div>
+	@* <div class="card" onclick="location.href='@Url.Action("AdminDashboard", "staff", new{status="Payment Pending" })'">
+
+		<div class="card-body">Payement Pending : @Model.PaymentPending</div>
+	</div> *@
+</div>

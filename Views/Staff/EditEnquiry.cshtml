@@ -1,42 +1,45 @@
-﻿@model TallySoftware.DTO.EnquiryDTO
+﻿@model TallySoftware.DTO.EditEnquiryDto
 @{
     ViewData["Title"] = "Edit Enquiry";
 }
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+
             <div class="card">
                 <div class="card-header">
                     <h2 class="text-center" style="color: #212529; font-family: 'Times New Roman'">Edit Enquiry</h2>
                 </div>
+
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="login">
                             @using (Html.BeginForm("EditEnquiry", "Staff", FormMethod.Post, new { id = "submitForm" }))
                             {
                                 <p class="text-center text-danger">@ViewBag.LoginDataRequired</p>
-                                <div class="mb-3">
-                                    @Html.LabelFor(temp => temp.CustomerName)<span class="text-danger mx-1">*</span>
-                                    @Html.DropDownListFor(temp => temp.CustomerName, new SelectList(ViewBag.CustomerNameList), "Please Select", new { @class = "form-control" })
 
+                                <div class="mb-2">
+                                    @Html.LabelFor(temp => temp.CustomerName)
+                                    <div class="row" style="padding: 6px 12px;">
+                                        <div class="col-10" style=" border: 1px solid rgb(206,212,218);padding: 5px;border-radius: 5px;">
+                                    @Html.DisplayFor(temp => temp.CustomerName)
+                                    @* @Html.DropDownListFor(temp => temp.CustomerName, new SelectList(      ), "Please Select", new { @class = "form-control"}) *@
                                     @Html.ValidationMessageFor(temp => temp.CustomerName)
                                 </div>
-                               
-                                <div class="mb-3">
-                                    @Html.LabelFor(temp => temp.RecruitmentName)<span class="text-danger mx-1">*</span>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            @Html.DropDownListFor(temp => temp.RecruitmentName, new SelectList(ViewBag.recruitmentType), "Please Select", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(temp => temp.RecruitmentName)
-                                        </div>
-                                        <div class="col-2">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RecruitmentTypeModal">
-                                                <i class="fa-solid fa-circle-plus fa-xl"></i>
-                                            </button>
-                                        </div>
                                     </div>
-
                                 </div>
+                               
+                                <div class="mb-2">
+                                    @Html.LabelFor(temp => temp.RecruitmentName)
+                                    <div class="row" style="padding: 6px 12px;">
+                                        <div class="col-10" style=" border: 1px solid rgb(206,212,218);padding: 5px;border-radius: 5px;">
+                                            @* @Html.DropDownListFor(temp => temp.RecruitmentName, new SelectList(ViewBag.recruitmentType), "Please Select", new { @class = "form-control"}) *@
+                                            @Html.DisplayFor(temp => temp.RecruitmentName)
+                                            @Html.ValidationMessageFor(temp => temp.RecruitmentName)
+                                        </div> 
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     @Html.LabelFor(temp => temp.Status)<span class="text-danger mx-1">*</span>
                                     <div class="row">
@@ -50,23 +53,42 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
 
-                                </div>
                                 <div class="mb-3">
+                                    @Html.LabelFor(temp => temp.Resource)<span class="text-danger mx-1">*</span>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            @Html.DropDownListFor(temp => temp.Resource, new SelectList(ViewBag.resource), "Please Select", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(temp => temp.Resource)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="col-10">
                                     @Html.LabelFor(temp => temp.Remark)<span class="text-danger mx-1">*</span>
-                                    @Html.TextBoxFor(temp => temp.Remark, new { @class = "form-control" })
+                                    @Html.TextBoxFor(temp => temp.Remark, new { @class = "form-control",autocomplete = "off" })
                                     @Html.ValidationMessageFor(temp => temp.Remark)
+                                    </div>
                                 </div>
+
                                 <div class="mb-3">
+                                    <div class="col-10">
                                     @Html.LabelFor(temp => temp.Schedule)<span class="text-danger mx-1">*</span>
                                     @Html.EditorFor(temp=>temp.Schedule, new { htmlAttributes = new { @class = "form-control datepicker", Placeholder = "select Date" } })
                                     @Html.ValidationMessageFor(temp => temp.Schedule)
+                                    </div>
                                 </div>
+
                                 <div class="mb-3">
+                                    <div class="col-10">
                                     @Html.LabelFor(temp => temp.Payment)<span class="text-danger mx-1">*</span>
-                                    @Html.TextBoxFor(temp => temp.Payment, new { @class = "form-control" })
+                                        @Html.TextBoxFor(temp => temp.Payment, new { @class = "form-control",autocomplete = "off" })
                                     @Html.ValidationMessageFor(temp => temp.Payment)
+                                    </div>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <a class="btn btn-danger ms-1" href="/staff/admindashboard">Cancel</a>
                             }

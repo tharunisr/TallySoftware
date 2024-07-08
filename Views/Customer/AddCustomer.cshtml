@@ -5,8 +5,6 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-
-
 <body>
     <div class="container my-5">
         <div class="row justify-content-center">
@@ -23,36 +21,36 @@
 
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.Name)<span class="text-danger mx-1">*</span>
-                                @Html.TextBoxFor(temp => temp.Name, new { @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.Name, new { @class = "form-control" ,autocomplete = "off"})
                                 @Html.ValidationMessageFor(t=>t.Name)
                             </div>
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.Address)
-                                @Html.TextBoxFor(temp => temp.Address, new {  @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.Address, new {  @class = "form-control",autocomplete = "off" })
                                 @Html.ValidationMessageFor(t=>t.Address)
                             </div>
 
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.PhoneNumber)<span class="text-danger mx-1">*</span>
-                                @Html.TextBoxFor(temp => temp.PhoneNumber, new { @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.PhoneNumber, new { @class = "form-control",autocomplete = "off" })
                                 @Html.ValidationMessageFor(t=>t.PhoneNumber)
                             </div>
 
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.AdministrativeId)
-                                @Html.TextBoxFor(temp => temp.AdministrativeId, new { @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.AdministrativeId, new { @class = "form-control",autocomplete = "off" })
                                 @Html.ValidationMessageFor(t => t.AdministrativeId)
                             </div>
 
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.CompanyName)
-                                @Html.TextBoxFor(temp => temp.CompanyName, new { @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.CompanyName, new { @class = "form-control",autocomplete = "off" })
                                 @Html.ValidationMessageFor(t => t.CompanyName)
                             </div>
 
                             <div class="mb-3">
                                 @Html.LabelFor(temp => temp.ContactPersonName)
-                                @Html.TextBoxFor(temp => temp.ContactPersonName, new { @class = "form-control" })
+                                @Html.TextBoxFor(temp => temp.ContactPersonName, new { @class = "form-control" ,autocomplete = "off"})
                                 @Html.ValidationMessageFor(t => t.ContactPersonName)
                             </div>
 
@@ -63,12 +61,18 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a class="btn btn-danger ms-1" href="/staff/admindashboard">Cancel</a>
+                            <a class="btn btn-danger ms-1" href="/customer/displaycustomer">Cancel</a>
                         }
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="add-btn">
+        <div class="my-3">
+            <i class="fa-solid fa-circle-plus enquiry-plus fa-2xl" onclick="location.href='@Url.Action("Enquiry", "staff")'"></i>
+        </div>
+
     </div>
 
 </body>

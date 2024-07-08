@@ -26,7 +26,7 @@ namespace TallySoftware.Services
         public async Task<Staff> GetStaff(string username, string password)
         {
             Staff? staff = await _context.Staffs.
-                FirstOrDefaultAsync(u => u.StaffName.Equals(username) && u.Password.Equals(password));
+                FirstOrDefaultAsync(u => u.StaffName.Equals(username) && u.Password.Equals(password)&& !u.IsDeleted);
             if (staff == null)
             {
                 return null;

@@ -20,8 +20,6 @@ namespace TallySoftware.Controllers
             _context = context;
             _staffService = staffService;
         }
-
-
         public ActionResult Index()
         {
             return View();
@@ -30,14 +28,14 @@ namespace TallySoftware.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            
+
             return View();
         }
         [HttpPost]
         public ActionResult Login(Staff staff) { 
             try
             {
-                if (!string.IsNullOrWhiteSpace(staff.StaffName) && !string.IsNullOrWhiteSpace(staff.Password))
+                if (!string.IsNullOrWhiteSpace(staff.StaffName) && !string.IsNullOrWhiteSpace(staff.Password) )
                 {
                     Staff user = _staffService.GetStaff(staff.StaffName, staff.Password).Result;
                     if (user == null)
@@ -53,14 +51,18 @@ namespace TallySoftware.Controllers
                         
                         if (user.StaffType == "Admin")
                         {
-                            return RedirectToAction("admindashboard", "Staff");
+                            return RedirectToAction("dashboard", "Staff");
                         }
                         else
                         {
-                            return RedirectToAction("staffdashboard", "Staff");
+                            return RedirectToAction("dashboard", "Staff");
                         }
                        
                     }
+                }
+                else
+                {
+                    ViewBag.Error = "Staff not found";
                 }
             }
             catch(Exception ex)

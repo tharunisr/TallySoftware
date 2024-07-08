@@ -12,8 +12,8 @@ using TallySoftware;
 namespace TallySoftware.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240514132632_confirmpassrequired")]
-    partial class confirmpassrequired
+    [Migration("20240629073607_resource")]
+    partial class resource
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace TallySoftware.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");    
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactPersonName")
                         .HasColumnType("nvarchar(max)");
@@ -98,7 +98,7 @@ namespace TallySoftware.Migrations
 
                     b.HasKey("CustomerTypeId");
 
-                    b.ToTable("CustomerType");
+                    b.ToTable("CustomerTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.EnquiryEntity", b =>
@@ -108,6 +108,9 @@ namespace TallySoftware.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -134,6 +137,10 @@ namespace TallySoftware.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Resource")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Schedule")
                         .HasColumnType("datetime2");
 
@@ -152,6 +159,23 @@ namespace TallySoftware.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Enquiries");
+                });
+
+            modelBuilder.Entity("TallySoftware.Entity.RecruitmentType", b =>
+                {
+                    b.Property<int>("RecruitmentTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecruitmentTypeId"));
+
+                    b.Property<string>("RecruitmentTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RecruitmentTypeId");
+
+                    b.ToTable("RecruitmentTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.Staff", b =>
@@ -195,6 +219,23 @@ namespace TallySoftware.Migrations
                             StaffName = "admin",
                             StaffType = "Admin"
                         });
+                });
+
+            modelBuilder.Entity("TallySoftware.Entity.StatusType", b =>
+                {
+                    b.Property<int>("StatusTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusTypeId"));
+
+                    b.Property<string>("StatusTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusTypeId");
+
+                    b.ToTable("StatusTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.Customer", b =>

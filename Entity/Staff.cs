@@ -14,7 +14,7 @@ namespace TallySoftware.Entity
         [Compare("Password", ErrorMessage = "Should be same as Password ")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
-        public string StaffType { get; set; }
+        public string? StaffType { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-@model TallySoftware.DTO.EnquiryDTO
+﻿@model TallySoftware.DTO.EnquiryDTO
 @{
     ViewData["Title"] = "Add Enquiry";
 }
@@ -21,14 +20,13 @@
                                     @* @Html.TextBoxFor(temp => temp.CustomerName, new { @class = "form-control" }) *@
                                   @*   <select asp-for="CustomerName" class="form-control" /> *@
                                         @Html.DropDownListFor(temp => temp.CustomerName, new SelectList(ViewBag.CustomerNameList), "Please Select", new { @class = "form-control" })
-                                      
                                     @Html.ValidationMessageFor(temp => temp.CustomerName)
                                 </div>
                                 <div class="mb-3">
                                     @Html.LabelFor(temp => temp.RecruitmentName)<span class="text-danger mx-1">*</span>
                                     <div class="row">
                                         <div class="col-10">
-                                            @Html.DropDownListFor(temp => temp.RecruitmentName, new SelectList(ViewBag.recruitmentType), "Please Select", new { @class = "form-control" })
+                                            @Html.DropDownListFor(temp => temp.RecruitmentName,new SelectList(ViewBag.recruitmentType), "Please Select", new { @class = "form-control" })
                                             @Html.ValidationMessageFor(temp => temp.RecruitmentName)
                                         </div>
                                         <div class="col-2">
@@ -55,8 +53,14 @@
                                       
                                 </div>
                                 <div class="mb-3">
+                                    @Html.LabelFor(temp => temp.Resource)<span class="text-danger mx-1">*</span>
+                                  
+                                    @Html.DropDownListFor(temp => temp.Resource, new SelectList(ViewBag.resource), "Please Select", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(temp => temp.Resource)
+                                </div>
+                                <div class="mb-3">
                                         @Html.LabelFor(temp => temp.Remark)<span class="text-danger mx-1">*</span>
-                                        @Html.TextBoxFor(temp => temp.Remark, new { @class = "form-control" })
+                                    @Html.TextBoxFor(temp => temp.Remark, new { @class = "form-control",autocomplete = "off"})
                                         @Html.ValidationMessageFor(temp => temp.Remark)
                                 </div>
                                 <div class="mb-3">
@@ -66,11 +70,11 @@
                                 </div>
                                     <div class="mb-3">
                                         @Html.LabelFor(temp => temp.Payment)<span class="text-danger mx-1">*</span>
-                                        @Html.TextBoxFor(temp => temp.Payment, new { @class = "form-control" })
+                                    @Html.TextBoxFor(temp => temp.Payment, new { @class = "form-control" ,autocomplete = "off"})
                                         @Html.ValidationMessageFor(temp => temp.Payment)
                                     </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a class="btn btn-danger ms-1" href="/staff/admindashboard">Cancel</a>
+                                <a class="btn btn-danger ms-1" href="/staff/dashboard">Cancel</a>
                             }
                         </div>
                     </div>
@@ -78,6 +82,11 @@
             </div>
           </div>
         </div>
+    <div class="add-btn">
+    <div class="my-3">
+        <i class="fa-solid fa-user-plus enquiry-plus fa-2xl" onclick="location.href='@Url.Action("Addcustomer", "customer")'"></i>
+    </div>
+    </div>
     </div>
     
  

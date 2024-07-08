@@ -1,0 +1,71 @@
+﻿@model TallySoftware.Entity.Staff
+@{
+    ViewData["Title"] = "Edit Staff";
+}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center" style="color: #212529; font-family: 'Times New Roman'">Edit Staff</h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="login">
+                            @using (Html.BeginForm("Editstaff", "Staff", FormMethod.Post, new { id = "submitForm" }))
+                            {
+                                <p class="text-center text-danger">@ViewBag.LoginDataRequired</p>
+
+                                <div class="mb-3">
+                                    <div class="col-10">
+                                        
+                                        @Html.HiddenFor(temp => temp.StaffId, new { @class = "form-control"})
+                                        
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-10">
+                                        @Html.LabelFor(temp => temp.StaffName)<span class="text-danger mx-1">*</span>
+                                        @Html.TextBoxFor(temp => temp.StaffName, new { @class = "form-control",autocomplete = "off" })
+                                        @Html.ValidationMessageFor(temp => temp.StaffName)
+                                    </div>
+                                </div>
+
+                                <div class="mb-2">
+                                    @Html.LabelFor(temp => temp.StaffType)
+                                    <div class="row" style="padding: 6px 12px;">
+                                        <div class="col-10" style=" border: 1px solid rgb(206,212,218);padding: 5px;border-radius: 5px;">
+                                           @Html.DisplayFor(temp => temp.StaffType)
+                                            @Html.ValidationMessageFor(temp => temp.StaffType)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="col-10">
+                                        @Html.LabelFor(temp => temp.Password)<span class="text-danger mx-1">*</span>
+                                        @Html.PasswordFor(temp => temp.Password, new { @class = "form-control",autocomplete = "off" })
+                                        @Html.ValidationMessageFor(temp => temp.Password)
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="col-10">
+                                        @Html.LabelFor(temp => temp.ConfirmPassword)<span class="text-danger mx-1">*</span>
+                                        @Html.PasswordFor(temp => temp.ConfirmPassword, new { @class = "form-control",autocomplete = "off" })
+                                        @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-danger ms-1" href="/staff/displaystaff">Cancel</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

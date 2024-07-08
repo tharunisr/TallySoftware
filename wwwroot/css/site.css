@@ -16,3 +16,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+.add-btn  {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+}
+.lead-color {
+    background-color: #25CED1;
+}
+.site_color {
+    background-color: #6096BA;
+}
+.payment-color {
+    background-color: #EE8434;
+}
+.new-color {
+    background-color: #F7EF99;
+}
+.todayschedule-color {
+    background-color: #82816D;
+}

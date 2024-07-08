@@ -78,7 +78,7 @@ namespace TallySoftware.Migrations
 
                     b.HasIndex("CustomerTypeId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.CustomerType", b =>
@@ -95,7 +95,7 @@ namespace TallySoftware.Migrations
 
                     b.HasKey("CustomerTypeId");
 
-                    b.ToTable("CustomerTypes", (string)null);
+                    b.ToTable("CustomerTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.EnquiryEntity", b =>
@@ -134,6 +134,10 @@ namespace TallySoftware.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Resource")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Schedule")
                         .HasColumnType("datetime2");
 
@@ -151,7 +155,7 @@ namespace TallySoftware.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Enquiries", (string)null);
+                    b.ToTable("Enquiries");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.RecruitmentType", b =>
@@ -168,7 +172,7 @@ namespace TallySoftware.Migrations
 
                     b.HasKey("RecruitmentTypeId");
 
-                    b.ToTable("RecruitmentTypes", (string)null);
+                    b.ToTable("RecruitmentTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.Staff", b =>
@@ -195,12 +199,11 @@ namespace TallySoftware.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StaffId");
 
-                    b.ToTable("Staffs", (string)null);
+                    b.ToTable("Staffs");
 
                     b.HasData(
                         new
@@ -228,7 +231,7 @@ namespace TallySoftware.Migrations
 
                     b.HasKey("StatusTypeId");
 
-                    b.ToTable("StatusTypes", (string)null);
+                    b.ToTable("StatusTypes");
                 });
 
             modelBuilder.Entity("TallySoftware.Entity.Customer", b =>

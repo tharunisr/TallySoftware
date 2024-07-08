@@ -26,7 +26,7 @@
 
                   </div>
             <div class="d-flex justify-content-between">
-                <input class="form-control me-2" type="text" name="search">
+                <input class="form-control me-2" type="text" name="search" value="@ViewBag.search" autocomplete="off">
 
                 <button type="submit" value="submit" class="btn btn-secondary">Apply </button>
                 <button type="reset" value="submit" class="btn btn-danger ms-1"
@@ -45,11 +45,14 @@
                 <th>Name</th>
                 <th>Phone Number</th>
                 <th>Address</th>
-                <th>Administrative Id</th>
+                <th>Administrator Id</th>
                 <th>Company Name</th>
                 <th>Contact Person Name</th>
                 <th>Customer Type</th>
-                <th>Action</th>
+                @if (ViewBag.usertype == "Admin")
+                {
+                    <th>Action</th>
+                }
             </tr>
             @if (Model.Count > 0)
             {
@@ -66,15 +69,18 @@
                         <td>@Html.DisplayFor(temp => i.CompanyName)</td>
                         <td>@Html.DisplayFor(temp => i.ContactPersonName)</td>
                         <td>@Html.DisplayFor(temp => i.CustomerTypeName)</td>
-                        <td>
-                            
-                            <i class="fa-solid fa-user-pen text-success fa-xl" onclick="location.href='@Url.Action("EditCustomer", "Customer", new { Id =i.CustomerId })'">
-                                
-                            </i>
+                        @if (ViewBag.usertype == "Admin")
+                        {
+                            <td>
 
-                            <i class="fa-solid fa-trash text-danger fa-xl" onclick="location.href='@Url.Action("DeleteCustomer", "Customer", new { Id =i.CustomerId })'"></i>
+                                <i class="fa-solid fa-user-pen text-success fa-xl" onclick="location.href='@Url.Action("EditCustomer", "Customer", new { Id =i.CustomerId })'">
 
-                        </td>
+                                </i>
+
+                                <i class="fa-solid fa-trash text-danger fa-xl" onclick="location.href='@Url.Action("DeleteCustomer", "Customer", new { Id =i.CustomerId })'"></i>
+
+                            </td>
+                        }
                     </tr>
                     count++;
                 }
@@ -88,7 +94,7 @@
             
         </table>
         <div>
-        <a class="btn btn-danger ms-1" href="/staff/admindashboard">back</a>
+        <a class="btn btn-danger ms-1" href="/staff/dashboard">back</a>
         </div>
     </div>
 </body>
@@ -109,27 +115,38 @@
 {
     <ul class="pagination justify-content-center">
         <li class="page-item">
-            <a class="page-link" href="/customer/displaycustomer?pageno=@prevpage">Prev</a>
+            <a class="page-link"
+               onclick="location.href='@Url.Action("displaycustomer","customer",new{
+                           pageno=prevpage,customertype=  ViewBag.customertype,search=ViewBag.search})'">Prev</a>
+
         </li>
         @for (int i = 0; i < ViewBag.noofpage; i++)
         {
             if ((i + 1) == ViewBag.pageno)
             {
                 <li class="page-item active">
-                    <a class="page-link" href="/customer/displaycustomer?pageno=@(i+1)">@(i + 1)</a>
+                    <a class="page-link"
+                       onclick="location.href='@Url.Action("displaycustomer","customer",new{
+                           pageno=@i+1,customertype=  ViewBag.customertype,search=ViewBag.search})'">@(i + 1)</a>
+
+                    
 
                 </li>
             }
             else
             {
                 <li class="page-item">
-                    <a class="page-link" href="/customer/displaycustomer?pageno=@(i+1)">@(i + 1)</a>
+                    <a class="page-link"
+                       onclick="location.href='@Url.Action("displaycustomer","customer",new{
+                           pageno=@i+1,customertype=  ViewBag.customertype,search=ViewBag.search})'">@(i + 1)</a>
 
                 </li>
             }
         }
         <li class="page-item">
-            <a class="page-link" href="/customer/displaycustomer?pageno=@nextpage">Next</a>
+            <a class="page-link"
+               onclick="location.href='@Url.Action("displaycustomer","customer",new{
+                           pageno=nextpage,customertype=ViewBag.customertype,search=ViewBag.search})'">Next</a>
 
         </li>
     </ul>

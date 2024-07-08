@@ -13,7 +13,14 @@
 </head>
 <body>
     <div class="my-3 text-center">
-        <h2>Enquiries</h2>
+        @if (@ViewBag.status != null)
+        {
+            <h2>@ViewBag.status Enquiries</h2>
+        }
+        else
+        {
+            <h2>Today Enquiries</h2>
+        }
     </div>
  
     @using (Html.BeginForm("AdminDashboard", "Staff", FormMethod.Get)) {
@@ -21,14 +28,19 @@
 
         <div class=" my-3 d-flex justify-content-between container-fluid p-0">
             <div class="d-flex justify-content-between">
-                @Html.DropDownList("status", new SelectList(ViewBag.statusType), "All", new { @class = "me-3 w-25"})
+                @if (@ViewBag.status != "Payment Pending" && @ViewBag.status != "Completed"
+               && @ViewBag.status != "Rejected" && @ViewBag.status != "New" )
+                {
+                    @Html.DropDownList("status", new SelectList(ViewBag.statusType), new { @class = "me-3 w-25"})
+                }
+                
 
-                @Html.DropDownList("recruitment", new SelectList(ViewBag.recruitmentType), "All", new { @class = "mx-3 w-25"})
+                @Html.DropDownList("recruitment", new SelectList(ViewBag.recruitmentType), new { @class = "mx-3 w-25"})
                 <input type="date" id="schedule" name="schedule" class="form-control w-50" value="@ViewBag.schedule">
                @*  @Html.Editor("schedule") *@
         </div>
             <div class="d-flex justify-content-between">
-                <input class="form-control me-2" type="text"  name="search">
+                <input class="form-control me-2" type="text" name="search" value="@ViewBag.search" autocomplete="off">
 
                 <button type="submit" value="submit" class="btn btn-secondary me-1">Apply</button>
                 <button type="reset" value="submit" class="btn btn-danger ms-1 text-white"
@@ -36,9 +48,7 @@
                     Clear
                 </button>
         </div>
-       
             </div>
-    
     }
     <div class="table-responsive">
     <table class="table table-bordered">
@@ -49,9 +59,17 @@
             <th>Recruitment</th>
             <th>Remarks</th>
             <th>Status</th>
+            <th>Resource</th>
             <th>Schedule</th>
             <th>Payment</th>
-            <th>Action</th>
+                @if (ViewBag.usertype == "Admin")
+                {
+                    <th>Action</th>
+
+                }
+
+                   
+               
         </tr>
         @if (Model.Count > 0)
         {
@@ -64,17 +82,22 @@
                     <td>@Html.DisplayFor(temp => i.Customer.PhoneNumber)</td>
                     <td>@Html.DisplayFor(temp => i.Recruitment)</td>
                     <td>@Html.DisplayFor(temp => i.Remark)</td>
-                        <td>@Html.DisplayFor(temp => i.Status) </td>
-                   @*  <td>@Html.DisplayFor(temp => i.Status)</td> *@
+                    <td>@Html.DisplayFor(temp => i.Status) </td>
+                    <td>@Html.DisplayFor(temp=>i.Resource) </td>
                     <td>@Html.DisplayFor(temp => i.Schedule)</td>
                     <td>@Html.DisplayFor(temp => i.Payment)</td>
-                        <td>
-                           
-                            <i class="fa-solid fa-pen-to-square text-success fa-xl" onclick="location.href='@Url.Action("EditEnquiry", "staff", new { Id =i.Id })'"></i>
+                        @if (ViewBag.usertype == "Admin")
+                        {
+                            <td>
+                                @if (i.Status != "Completed" && i.Status != "Rejected")
+                                {
+                                    <i class="fa-solid fa-pen-to-square text-success fa-xl" onclick="location.href='@Url.Action("EditEnquiry", "staff", new { Id =i.Id })'"></i>
+                                }
+
                                 <i class="fa-solid fa-trash text-danger fa-xl" onclick="location.href='@Url.Action("DeleteEnquiry", "staff", new { Id =i.Id })'"></i>
-                            
-                        </td>
-                    @* <td>
+                            </td>
+                        }
+                        @* <td>
                         @if (i.Status == "Approved")
                         {
                             <span class="badge bg-success">@Html.DisplayFor(temp => i.Status)</span>
@@ -104,53 +127,76 @@
                 <td colspan="9" class="text-center text-danger fw-bold">Enquiries Not Found</td>
             </tr>
         }
-
-           
-
     </table>
     </div>
+    @{
+        int prevpage = ViewBag.pageno - 1;
+        if (prevpage <= 0)
+        {
+            prevpage = 1;
+        }
+        int nextpage = ViewBag.pageno + 1;
+        if (nextpage > ViewBag.noofpage)
+        {
+            nextpage = ViewBag.noofpage;
+        }
+    }
+    @if (@ViewBag.TotalCount > 0)
+    {
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link"
+                   onclick="location.href='@Url.Action("admindashboard", "staff",new{status=ViewBag.status,
+                       pageno =@prevpage,recruitment=  ViewBag.recruitment,schedule=ViewBag.schedule,search=ViewBag.search })'">Prev</a>
 
+            </li>
+            @for (int i = 0; i < ViewBag.noofpage; i++)
+            {
+                if ((i + 1) == ViewBag.pageno)
+                {
+                    <li class="page-item active">
+                        <a class="page-link"
+                           onclick="location.href='@Url.Action("admindashboard", "staff",new{status=ViewBag.status,
+                               pageno=@i+1,recruitment=  ViewBag.recruitment,schedule=ViewBag.schedule,search=ViewBag.search})'">@(i + 1)</a>
+
+                      @*   <a class="page-link" href="/staff/admindashboard?pageno=@(i+1)">@(i + 1)</a> *@
+
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           onclick="location.href='@Url.Action("admindashboard", "staff",new{status=ViewBag.status,
+                               pageno=@i+1,recruitment=  ViewBag.recruitment,schedule=ViewBag.schedule,search=ViewBag.search})'">@(i + 1)</a>
+
+                      @*   <a class="page-link" href="/staff/admindashboard?pageno=@(i+1)">@(i + 1)</a> *@
+
+                    </li>
+                }
+            }
+            <li class="page-item">
+                <a class="page-link" 
+                   onclick="location.href='@Url.Action("admindashboard", "staff",new{status=ViewBag.status,
+                       pageno =@nextpage,recruitment=  ViewBag.recruitment,schedule=ViewBag.schedule,search=ViewBag.search })'">Next</a>
+            </li>
+        </ul>
+    }
+
+        <div class="add-btn">
+            <div class="my-3">
+                <i class="fa-solid fa-circle-plus enquiry-plus fa-2xl" onclick="location.href='@Url.Action("Enquiry", "staff")'"></i>
+            </div>
+            <div class="my-3">
+                <i class="fa-solid fa-user-plus enquiry-plus fa-2xl" onclick="location.href='@Url.Action("Addcustomer", "customer")'"></i>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-danger ms-1" href="/staff/dashboard">back</a>
+        </div>
+    
 </body>
 </html>
 
-@{
-    int prevpage = ViewBag.pageno - 1;
-    if (prevpage <= 0)
-    {
-        prevpage = 1;
-    }
-    int nextpage = ViewBag.pageno + 1;
-    if (nextpage > ViewBag.noofpage)
-    {
-        nextpage = ViewBag.noofpage;
-    }
-}
-@if (@ViewBag.TotalCount > 0)
-{
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link" href="/staff/admindashboard?pageno=@prevpage">Prev</a>
-        </li>
-        @for (int i = 0; i < ViewBag.noofpage; i++)
-        {
-            if ((i + 1) == ViewBag.pageno)
-            {
-                <li class="page-item active">
-                    <a class="page-link" href="/staff/admindashboard?pageno=@(i+1)">@(i + 1)</a>
-                    
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a class="page-link" href="/staff/admindashboard?pageno=@(i+1)">@(i+1)</a>
-                   
-                </li>
-            }
-        }
-            <li class="page-item">
-            <a class="page-link" href="/staff/admindashboard?pageno=@nextpage">Next</a>
-                
-            </li>
-    </ul>
-}
+
+

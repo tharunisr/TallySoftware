@@ -4,10 +4,8 @@ using TallySoftware.DTO;
 using TallySoftware.Entity;
 using TallySoftware.Services;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
 namespace TallySoftware.Controllers
 {
-
     public class CustomerController : Controller
     {
         private string? customertype = null;
@@ -47,9 +45,9 @@ namespace TallySoftware.Controllers
                 }
                 else
                 {
+                    
                     Customer customer = new Customer();
                     customer = MapEntity(customer, customerDTO);
-
                     await _context.AddAsync(customer);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("DisplayCustomer");
@@ -64,7 +62,6 @@ namespace TallySoftware.Controllers
                     //    {
                     //        return RedirectToAction("staffdashboard", "staff");
                     //    }
-
                     //}
                 }
             }
@@ -73,8 +70,12 @@ namespace TallySoftware.Controllers
         [HttpGet]
         public async Task<ActionResult> DisplayCustomer(string customertype = null, string search = null,int pageno=1)
         {
+            ViewBag.usertype = HttpContext.Session.GetString("LoggedInUserType");
             this.customertype = customertype;
             this.search = search;
+            ViewBag.customertype = customertype;
+            ViewBag.search=search;
+            ViewBag.search = !String.IsNullOrEmpty(search) ? search : null;
             var query = _context.Customers.Where(c => !c.IsDeleted).AsQueryable();
             List<string> customertypeName = new List<string>();
             customertypeName = GetCustomerTypeName().Result;
@@ -88,12 +89,12 @@ namespace TallySoftware.Controllers
             }
             if (!string.IsNullOrWhiteSpace(search))
             {
-                query = query.Where(c => c.Name.Equals(search) || c.PhoneNumber.Equals(search));
+                query = query.Where(c => c.Name.Contains(search) || c.PhoneNumber.Contains(search));
             }
             List<Customer> Customer = await _context.Customers.Where(c => !c.IsDeleted).ToListAsync();
             Customer = query.ToList();
             ViewBag.TotalCount = Customer.Count;
-            int noofrecordperpage = 10;
+            int noofrecordperpage = 5;
             int noofpage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Customer.Count) / Convert.ToDouble(noofrecordperpage)));
             int noofrecordstoskip = (pageno - 1) * noofrecordperpage;
             ViewBag.pageno = pageno;
@@ -118,7 +119,6 @@ namespace TallySoftware.Controllers
         }
         public Customer MapEntity(Customer customer,CustomerDTO customerDTO)
         {
-            
             customer.Name = customerDTO.Name;
             customer.Address = !string.IsNullOrEmpty(customerDTO.Address) ? customerDTO.Address : null;
             customer.PhoneNumber = !string.IsNullOrEmpty(customerDTO.PhoneNumber) ? customerDTO.PhoneNumber : null;
@@ -142,7 +142,6 @@ namespace TallySoftware.Controllers
             }
             CustomerDTO customerDTO = new CustomerDTO();
             Customer customer = GetCustomerById(id).Result;
-            
             customerDTO.Customerid = customer.CustomerId;
             customerDTO.Name = customer.Name;
             customerDTO.Address=customer.Address;
@@ -150,7 +149,7 @@ namespace TallySoftware.Controllers
             customerDTO.CompanyName=customer.CompanyName;
             customerDTO.CustomerTypeName=customer.CustomerTypeName;
             customerDTO.Remark=customer.Remark;
-            customerDTO.AdministrativeId= customer.AdministrativeId;
+            customerDTO.AdministrativeId = customer.AdministrativeId;
             customerDTO.ContactPersonName=customer.ContactPersonName;
             return View(customerDTO);
         }
@@ -184,7 +183,6 @@ namespace TallySoftware.Controllers
             _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction("DisplayCustomer");
-
         }
             public async Task<Customer> GetCustomerById(int customerId)
         {
